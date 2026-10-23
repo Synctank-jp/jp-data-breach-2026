@@ -340,6 +340,7 @@
 - `images/01_cause-types.png` — 手口別集計（SNS投稿用）
 - `images/02_industries.png` — 業種別分布
 - `images/03_supply-chain.png` — 波及構造
+- `tools/build.mjs` — README から PDF 版と画像3点を書き出すスクリプト（`cd tools && npm install && npm run build`、Google Chrome が必要）
 - `LICENSE.md` — CC BY 4.0
 
 ## 主な出典

@@ -1,0 +1,13 @@
+{
+  "name": "jp-data-breach-2026-build",
+  "private": true,
+  "type": "module",
+  "description": "README.md から配布用 PDF と画像3点を書き出す",
+  "scripts": {
+    "build": "node build.mjs"
+  },
+  "dependencies": {
+    "marked": "14.1.4",
+    "playwright-core": "1.48.2"
+  }
+}
