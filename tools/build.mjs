@@ -14,8 +14,9 @@ fs.mkdirSync(path.join(out, "images"), { recursive: true });
 
 const RED = "#c0392b", NAVY = "#2c3e50", GRAY = "#7f8c8d", BG = "#f6f5f2";
 const FONT = `<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&display=block">`;
-const PERIOD = "2026/1/1〜10/23 19時";
-const FOOT = `出典：各社公式発表・専門メディアを突き合わせ（主要64事案、${PERIOD}）｜Synctank-jp｜github.com/Synctank-jp/jp-data-breach-2026`;
+const PERIOD = "2026/1/1〜10/27 17時";
+const TOTAL = 67; // 主要事案の件数
+const FOOT = `出典：各社公式発表・専門メディアを突き合わせ（主要${TOTAL}事案、${PERIOD}）｜Synctank-jp｜github.com/Synctank-jp/jp-data-breach-2026`;
 
 // ---------- PDF ----------
 const md = fs.readFileSync(path.join(repo, "README.md"), "utf8");
@@ -40,31 +41,31 @@ code{font-size:9pt;background:#f2f1ee;padding:0 2pt}
 
 // ---------- 画像 01: 手口別 ----------
 const causes = [
-  ["① Webアプリ・APIの脆弱性/仕様・機能悪用", 18, 28, RED],
-  ["⑦ 侵入経路未公表・調査中", 27, 42, GRAY],
-  ["⑥ ランサムウェア", 7, 11, NAVY],
-  ["③ 委託先・SaaS・基盤経由（手口不明）", 7, 11, NAVY],
+  ["① Webアプリ・APIの脆弱性/仕様・機能悪用", 19, 28, RED],
+  ["⑦ 侵入経路未公表・調査中", 29, 43, GRAY],
+  ["⑥ ランサムウェア", 7, 10, NAVY],
+  ["③ 委託先・SaaS・基盤経由（手口不明）", 7, 10, NAVY],
   ["② 盗まれた・弱い認証情報", 4, 6, NAVY],
-  ["⑤ VPN・リモートアクセス機器", 1, 2, NAVY],
+  ["⑤ VPN・リモートアクセス機器", 1, 1, NAVY],
   ["④ 設定・管理不備", 0, 0, NAVY],
 ];
-const MAXC = 27;
+const MAXC = 29;
 const card = (n, t) => `<div class="card"><div class="big">${n}</div><div class="ct">${t}</div></div>`;
 const img1 = `
 <h1>2026年 国内の大規模情報漏えい、手口はなにか</h1>
-<div class="sub">主要64事案の「主因」を型別に集計（2026年1月1日〜10月23日19時公表分）</div>
-<div class="cards">${card("18件", "Webアプリ・APIの不備が最多。ランサムでもVPNでもない")}${card("23件", "「不正アクセス」「調査中」のみで経路が完全に未公表")}${card("69%", "手口が特定できない事案（部位のみ公表を含む）")}</div>
+<div class="sub">主要${TOTAL}事案の「主因」を型別に集計（2026年1月1日〜10月27日17時公表分）</div>
+<div class="cards">${card("19件", "Webアプリ・APIの不備が最多。ランサムでもVPNでもない")}${card("23件", "「不正アクセス」「調査中」のみで経路が完全に未公表")}${card("67%", "手口が特定できない事案（部位のみ公表を含む）")}</div>
 <div class="bars">${causes.map(([l, n, p, c]) => `<div class="row"><div class="lab">${l}</div><div class="track"><div class="bar" style="width:${Math.max(n / MAXC * 82, 0.6)}%;background:${c}"></div><div class="val"><b>${n}</b> <span>${p}%</span></div></div></div>`).join("")}</div>
-<div class="note">①の代表例：ソースネクスト（会員情報取得APIの不正利用・2,252万件）、Gyazo（画像サーバーの脆弱性・2,362万件）、Eストアー（アプリ脆弱性・2,335万人）、KDDI（第三者製ソフトのゼロデイ・1,223万件）、skyticket（管理機能の不正操作・1,464万件）。⑦にはタイムズカー、焼肉きんぐ、バーガーキング、ブックオフ、カプコン、お名前.com、リクルート、ブラストメールなど大規模事案が多数含まれる。</div>`;
+<div class="note">①の代表例：ソースネクスト（会員情報取得APIの不正利用・2,252万件）、Gyazo（画像サーバーの脆弱性・2,362万件）、Eストアー（アプリ脆弱性・2,335万人）、KDDI（第三者製ソフトのゼロデイ・1,223万件）、skyticket（管理機能の不正操作・1,464万件）、タイムズカー（Webシステムの脆弱性・662万件）。⑦には焼肉きんぐ、バーガーキング、ブックオフ、カプコン、お名前.com、リクルート、Joshin、楽天トラベルなど大規模事案が多数含まれる。</div>`;
 
 // ---------- 画像 02: 業種別 ----------
 const inds = [
+  ["小売・EC", 16, "ムラウチ、ミスターマックス、ローソン、ブックオフ、H2O、Joshin、イオン、アンドエスティHD…"],
   ["IT・クラウド・SaaS・通信", 15, "KDDI、Eストアー、Gyazo、IDCF、Studio、ソースネクスト、お名前.com、ブラストメール…"],
-  ["小売・EC", 14, "ムラウチ、ミスターマックス、ローソン、ブックオフ、H2O、ファンケル、イオン…"],
   ["メディア・出版・コンテンツ・ゲーム", 9, "日経、コミックシーモア、Renta!、NewsPicks、カプコン、新潟日報社、カーセンサー…"],
   ["運輸・物流・モビリティ", 6, "タイムズカー、京王、ヤマト、佐川、JR東日本、JR九州"],
+  ["旅行・予約", 5, "skyticket、EPARK、ファインズ、手間いらず、楽天トラベル"],
   ["金融・証券・保険・決済", 4, "アフラック、第一生命、大和証券ほか（i-ask）、IDARE"],
-  ["旅行・予約", 4, "skyticket、EPARK、ファインズ、手間いらず"],
   ["飲食", 4, "焼肉きんぐ、バーガーキング、銀のさら、第一興商"],
   ["人材・調査", 2, "ディップ、infoQ"],
   ["医療・製薬", 2, "メドレー@link（787医療機関）、旭化成"],
@@ -75,8 +76,8 @@ const inds = [
 ];
 const img2 = `
 <h1>どの業種が漏らしたか</h1>
-<div class="sub">主要64事案の業種別分布（委託先・基盤が起点の事案は「IT・クラウド」に計上）</div>
-<div class="bars ind">${inds.map(([l, n, d]) => `<div class="row"><div class="lab">${l}</div><div class="track"><div class="bar" style="width:${n / 15 * 46}%;background:${NAVY}"></div><div class="val"><b>${n}</b></div><div class="desc">${d}</div></div></div>`).join("")}</div>
+<div class="sub">主要${TOTAL}事案の業種別分布（委託先・基盤が起点の事案は「IT・クラウド」に計上）</div>
+<div class="bars ind">${inds.map(([l, n, d]) => `<div class="row"><div class="lab">${l}</div><div class="track"><div class="bar" style="width:${n / 16 * 46}%;background:${NAVY}"></div><div class="val"><b>${n}</b></div><div class="desc">${d}</div></div></div>`).join("")}</div>
 <div class="note">大量漏えいは B2C（小売・飲食・運輸・コンテンツ）と、それを支えるIT基盤に偏る。一方、警察庁のランサムウェア統計（2026年上半期123件）では製造業37件が最多で中小企業が79件。「件数の大きな漏えい＝Web/API層」「業務停止＝VPN/RDP層」の二層構造になっている。</div>`;
 
 // ---------- 画像 03: 波及構造 ----------
@@ -87,11 +88,11 @@ const origins = [
   ["スカラコミュニケーションズ「i-ask」", "管理サイト不正ログイン→不正プログラム", "大和証券・シチズン・損保ジャパン・オリックス生命、延べ71.3万件"],
   ["Studio（ノーコードWeb制作）", "一部機能の脆弱性", "全登録顧客。LUUP、ラクスル、埼玉県、京都市、デジタル庁（最大1.3万件）などのフォーム内容・APIキー"],
   ["コミューン「Commune」", "通信経路の不備で不正登録・閲覧", "約30.7万人。LINEヤフー DS.LAB、Sansan、パナソニック等"],
-  ["ユミルリンク「Cuenote FC」", "脆弱性→認証情報の取得", "5システム、延べ約900万件の配信先。DNP「honto」など"],
+  ["ユミルリンク「Cuenote FC」", "ライブラリの脆弱性→認証情報の取得", "49システム、延べ約5,163万件。JR東海・JR西日本・JR九州、りそな3行、毎日新聞社、DNP「honto」など"],
   ["日本コロムビアG（第一興商の委託先）", "従業員PC1台のマルウェア感染", "第一興商（ビッグエコー等）約872万件"],
   ["NECの開発・保守委託先", "窃取された正規アカウント", "NEC顧客のサーバー暗号化、大阪大学など"],
   ["ライドオンの利用サーバー運営会社", "ランサムウェア", "銀のさら・釜寅等 最大約650万件"],
-  ["ラクスライトクラウド「ブラストメール」", "API用サーバーへの侵入（経路調査中）", "全契約者の販売管理情報。新潟日報社 最大約25.3万人、JR四国 最大約3万件、横浜市など公表先76項目"],
+  ["ラクスライトクラウド「ブラストメール」", "API用サーバーへの侵入（経路調査中）", "全契約者の販売管理情報。漏えい確認345契約。新潟日報社 最大約25.3万人、JR四国 最大約3万件など公表197組織"],
   ["手間いらず「TEMAIRAZU」", "不正アクセス（経路未公表）", "宿泊施設の予約者 最大約445万人"],
 ];
 const img3 = `
